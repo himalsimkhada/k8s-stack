@@ -1,0 +1,14 @@
+providers:
+  kubernetesGateway:
+    enabled: true
+
+gateway:
+  listeners:
+    websecure:
+      port: 8443
+      hostname: ""
+      protocol: HTTPS
+      namespacePolicy: ""
+      certificateRefs:
+        - name: tls
+      mode: Terminate
