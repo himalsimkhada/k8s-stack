@@ -8,7 +8,8 @@ gateway:
       port: 8443
       hostname: ""
       protocol: HTTPS
-      namespacePolicy: ""
+      namespacePolicy:
+        from: All
       certificateRefs:
         - name: tls
       mode: Terminate
