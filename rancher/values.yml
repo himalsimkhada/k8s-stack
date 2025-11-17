@@ -8,7 +8,7 @@ hostname: rancher.local
 
 ingress:
   enabled: true
-  ingressClassName: nginx
+  ingressClassName: traefik
   tls:
     source: secret
     secretName: tls-rancher-ingress

@@ -14,7 +14,7 @@ alertmanager:
         - url: 'http://prometheus-msteams:2000/alertmanager'
   alertmanagerSpec:
     replicas: 1
-    retention: 120h
+    retention: 24h
     storage:
       volumeClaimTemplate:
         spec:
@@ -22,7 +22,7 @@ alertmanager:
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
-              storage: 5Gi
+              storage: 1Gi
 
 grafana:
   enabled: false
@@ -52,7 +52,7 @@ prometheus:
           - prometheus.local
   prometheusSpec:
     replicas: 1
-    retention: 7d
+    retention: 3d
     externalUrl: https://prometheus.local
     storageSpec:
       volumeClaimTemplate:
@@ -61,4 +61,4 @@ prometheus:
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
-              storage: 20Gi
+              storage: 5Gi
