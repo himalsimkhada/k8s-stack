@@ -2,5 +2,7 @@ helm repo add prometheus-community https://prometheus-community.github.io/helm-c
 helm repo update
 
 helm upgrade --install prometheus prometheus-community/kube-prometheus-stack \
-  -n monitoring --create-namespace \
+  -n prometheus --create-namespace \
   -f values.yml
+
+helm uninstall prometheus -n prometheus

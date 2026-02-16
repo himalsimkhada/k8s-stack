@@ -1,5 +1,7 @@
-helm repo add grafana https://grafana.github.io/helm-charts
+helm repo add grafana-community https://grafana-community.github.io/helm-charts
 helm repo update
 
-helm upgrade --install grafana grafana/grafana \
-  -n monitoring -f values.yml
+helm upgrade --install grafana grafana-community/grafana \
+  -n grafana -f values.yml
+
+helm uninstall grafana -n grafana

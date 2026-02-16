@@ -1,0 +1,45 @@
+alloy:
+  configMap:
+    content: |
+      // 1. Discover pods in the cluster
+      discovery.kubernetes "pods" {
+        role = "pod"
+      }
+
+      // 2. Scrape logs from discovered pods
+      loki.source.kubernetes "pod_logs" {
+        targets    = discovery.kubernetes.pods.targets
+        forward_to = [loki.process.add_label.receiver]
+      }
+
+      // 3. Process logs (optional: add a cluster label)
+      loki.process "add_label" {
+        stage.static_labels {
+          values = { "cluster" = "my-prod-cluster" }
+        }
+        forward_to = [loki.write.local_loki.receiver]
+      }
+
+      // 4. Send logs to your existing Loki
+      loki.write "local_loki" {
+        endpoint {
+          url = "http://loki-gateway.monitoring.svc.cluster.local:3100/loki/api/v1/push"
+        }
+      }
+
+service:
+  enabled: true
+
+serviceMonitor:
+  enabled: false
+  additionalLabels: {}
+  interval: ""
+  metricRelabelings: []
+
+ingress:
+  enabled: true
+  faroPort: 12345
+  annotations:
+    {}
+  hosts:
+    - alloy.example.local

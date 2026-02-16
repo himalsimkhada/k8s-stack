@@ -1,0 +1,13 @@
+## for this issue Failed to allocate directory watch: Too many open files
+
+cat <<EOF >> /etc/sysctl.conf
+fs.inotify.max_user_instances=1024
+fs.inotify.max_user_watches=1048576
+EOF
+
+# Apply the changes from the file
+sysctl -p
+
+
+systemctl restart kubelet
+systemctl restart containerd

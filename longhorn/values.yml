@@ -1,3 +1,6 @@
+csi:
+  kubeletRootDir: /var/lib/kubelet
+
 ingress:
   enabled: true
   ingressClassName: nginx
