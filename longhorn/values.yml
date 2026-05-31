@@ -1,9 +1,29 @@
-csi:
-  kubeletRootDir: /var/lib/kubelet
-
 ingress:
   enabled: true
-  ingressClassName: nginx
   host: longhorn.local
-  tls: true
-  tlsSecret: longhorn.local-tls
+
+persistence:
+  defaultClassReplicaCount: 1
+
+defaultSettings:
+  defaultReplicaCount: 1
+  guaranteedInstanceManagerCPU: 5
+
+longhornManager:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+longhornUI:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
