@@ -1,17 +1,17 @@
 alertmanager:
   enabled: true
-  config:
-    route:
-      receiver: MSTeams
-      routes:
-      - matchers:
-          - severity="warning"
-        receiver: MSTeams
-    receivers:
-    - name: 'null'
-    - name: 'MSTeams'
-      webhook_configs:
-        - url: 'http://prometheus-msteams:2000/alertmanager'
+  # config:
+  #   route:
+  #     receiver: MSTeams
+  #     routes:
+  #     - matchers:
+  #         - severity="warning"
+  #       receiver: MSTeams
+  #   receivers:
+  #   - name: 'null'
+  #   - name: 'MSTeams'
+  #     webhook_configs:
+  #       - url: 'http://prometheus-msteams:2000/alertmanager'
   alertmanagerSpec:
     replicas: 1
     retention: 24h
@@ -29,30 +29,13 @@ grafana:
   
 prometheus:
   enabled: true
-  thanosService:
-    enabled: false
-  thanos:
-    objectStorageConfig:
-      secret:
-        type: S3
-        config:
-          bucket: "thanos"
-          endpoint: "minio:9000"
-          access_key: "minioadmin"
-          secret_key: "minioadmin"
-          insecure: true
   ingress:
     enabled: true
-    ingressClassName: nginx
     hosts:
       - prometheus.local
-    tls:
-      - secretName: tls
-        hosts:
-          - prometheus.local
   prometheusSpec:
     replicas: 1
-    retention: 3d
+    retention: 7d
     externalUrl: https://prometheus.local
     storageSpec:
       volumeClaimTemplate:
@@ -61,4 +44,4 @@ prometheus:
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
-              storage: 5Gi
+              storage: 15Gi
