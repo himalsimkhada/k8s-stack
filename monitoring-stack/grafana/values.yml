@@ -1,19 +1,32 @@
 replicas: 1
 
-serviceMonitor:
-  enabled: true
-  labels:
-    release: prometheus
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+sidecar:
+  dashboards:
+    enabled: false
+  datasources:
+    enabled: false
+  alerts:
+    enabled: false
+  resources:
+    requests:
+      cpu: 20m
+      memory: 50Mi
+    limits:
+      cpu: 100m
+      memory: 100Mi
 
 ingress:
   enabled: true
-  ingressClassName: nginx
   hosts:
     - grafana.local
-  tls:
-    - secretName: tls
-      hosts:
-        - grafana.local
 
 persistence:
   type: pvc
@@ -21,7 +34,7 @@ persistence:
   storageClassName: longhorn
   accessModes:
     - ReadWriteOnce
-  size: 1Gi
+  size: 10Gi
 
 admin:
   existingSecret: grafana-admin-secret
@@ -34,6 +47,7 @@ smtp:
   passwordKey: "password"
 
 extraConfigmapMounts:
-  - name: datasources
+  - name: grafana-datasources
     configMap: grafana-datasources
     mountPath: /etc/grafana/provisioning/datasources
+    readOnly: true
