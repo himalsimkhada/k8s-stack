@@ -8,70 +8,114 @@ configs:
 
 controller:
   replicas: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false
       additionalLabels:
         release: prometheus
 
 dex:
   enabled: true
+  resources:
+    limits:
+      cpu: 50m
+      memory: 64Mi
+    requests:
+      cpu: 10m
+      memory: 32Mi
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false
       additionalLabels:
         release: prometheus
 
 redis:
   enabled: true
+  resources:
+    limits:
+      cpu: 50m
+      memory: 64Mi
+    requests:
+      cpu: 10m
+      memory: 32Mi
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false
       additionalLabels:
         release: prometheus
 
 server:
   replicas: 1
+  resources:
+    limits:
+      cpu: 50m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 64Mi
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false
       additionalLabels:
         release: prometheus
   ingress:
     enabled: true
-    ingressClassName: nginx
-    extraTls:
-      - hosts: 
-        - argocd.local
-        secretName: tls
 
 repoServer:
   replicas: 1
+  resources:
+    limits:
+      cpu: 50m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 64Mi
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false
       additionalLabels:
         release: prometheus
 
 applicationSet:
   replicas: 1
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false
       additionalLabels:
         release: prometheus
 
 notifications:
   enabled: true
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false
       additionalLabels:
         release: prometheus
